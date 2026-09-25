@@ -9,15 +9,15 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+
         stage('Test') {
             steps {
-                sh '''
-                    docker run --rm \
-                    -v "$PWD":/app \
-                    -w /app \
-                    node:20-alpine \
-                    sh -c "npm ci && npm test"
-                '''
+                sh 'npm test'
             }
         }
 
