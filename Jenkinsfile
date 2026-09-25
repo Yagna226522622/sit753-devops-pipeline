@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'sit753-jenkins-agent:1.0'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     stages {
 
@@ -14,15 +9,15 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm ci'
-            }
-        }
-
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh '''
+                    docker run --rm \
+                    -v "$PWD":/app \
+                    -w /app \
+                    node:20-alpine \
+                    sh -c "npm ci && npm test"
+                '''
             }
         }
 
