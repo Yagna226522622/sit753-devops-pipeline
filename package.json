@@ -1,0 +1,18 @@
+{
+  "name": "sit753-devops-pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --runInBand --coverage",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "supertest": "^7.3.0"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
