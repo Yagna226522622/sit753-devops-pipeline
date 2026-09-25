@@ -30,11 +30,11 @@ pipeline {
                     )
                 ]) {
                     sh '''
-                        sonar-scanner \
-                        -Dsonar.projectKey=Yagna226522622_sit753-devops-pipeline \
-                        -Dsonar.organization=Yagna226522622 \
-                        -Dsonar.host.url=https://sonarcloud.io \
-                        -Dsonar.token=$SONAR_TOKEN
+                        docker run --rm \
+                        -e SONAR_HOST_URL=https://sonarcloud.io \
+                        -e SONAR_TOKEN=$SONAR_TOKEN \
+                        -v "$WORKSPACE:/usr/src" \
+                        sonarsource/sonar-scanner-cli:12.2
                     '''
                 }
             }
