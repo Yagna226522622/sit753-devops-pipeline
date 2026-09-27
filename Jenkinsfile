@@ -37,7 +37,7 @@ pipeline {
                           -w /usr/src \
                           sonarsource/sonar-scanner-cli:12.2 \
                           -Dsonar.projectKey=Yagna226522622_sit753-devops-pipeline \
-                          -Dsonar.organization=Yagna226522622 \
+                          -Dsonar.organization=yagna226522622 \
                           -Dsonar.host.url=https://sonarcloud.io \
                           -Dsonar.token="$SONAR_TOKEN" \
                           -Dsonar.sources=. \
@@ -49,7 +49,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t sit753-devops-pipeline:1.0 .'
+                sh 'docker build -t sit753-devops-pipeline .'
             }
         }
     }
