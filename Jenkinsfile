@@ -22,12 +22,6 @@ pipeline {
             }
         }
 
-        stage('Security Audit') {
-            steps {
-                sh 'npm audit --audit-level=high'
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([
@@ -54,6 +48,12 @@ pipeline {
             }
         }
 
+        stage('Security Scan') {
+            steps {
+                sh 'npm audit --audit-level=high'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t sit753-devops-pipeline .'
@@ -61,5 +61,4 @@ pipeline {
         }
 
     }
-
 }
