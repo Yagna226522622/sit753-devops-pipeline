@@ -60,5 +60,17 @@ pipeline {
             }
         }
 
+        stage('Deploy') {
+            steps {
+                sh '''
+                    docker rm -f sit753-app || true
+                    docker run -d \
+                        --name sit753-app \
+                        -p 3000:3000 \
+                        sit753-devops-pipeline
+                '''
+            }
+        }
+
     }
 }
