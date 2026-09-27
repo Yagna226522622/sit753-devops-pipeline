@@ -32,10 +32,10 @@ pipeline {
                 ]) {
                     sh '''
                         docker run --rm \
+                          --volumes-from jenkins \
+                          -w "$WORKSPACE" \
                           -e SONAR_HOST_URL=https://sonarcloud.io \
                           -e SONAR_TOKEN="$SONAR_TOKEN" \
-                          -v "$WORKSPACE:/usr/src" \
-                          -w /usr/src \
                           sonarsource/sonar-scanner-cli:12.2 \
                           -Dsonar.projectKey=Yagna226522622_sit753-devops-pipeline \
                           -Dsonar.organization=yagna226522622 \
@@ -65,12 +65,13 @@ pipeline {
                 sh '''
                     docker rm -f sit753-app || true
                     docker run -d \
-                        --name sit753-app \
-                        -p 3000:3000 \
-                        sit753-devops-pipeline
+                      --name sit753-app \
+                      -p 3000:3000 \
+                      sit753-devops-pipeline
                 '''
             }
         }
 
     }
+
 }
