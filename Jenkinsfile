@@ -22,6 +22,12 @@ pipeline {
             }
         }
 
+        stage('Security Audit') {
+            steps {
+                sh 'npm audit --audit-level=high'
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([
