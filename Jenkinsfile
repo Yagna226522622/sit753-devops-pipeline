@@ -23,7 +23,12 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                withCredentials([
+                    string(
+                        credentialsId: 'sonar-token',
+                        variable: 'SONAR_TOKEN'
+                    )
+                ]) {
                     sh '''
                         docker run --rm \
                           -e SONAR_HOST_URL=https://sonarcloud.io \
@@ -35,7 +40,7 @@ pipeline {
                           -Dsonar.organization=Yagna226522622 \
                           -Dsonar.host.url=https://sonarcloud.io \
                           -Dsonar.token="$SONAR_TOKEN" \
-                          -Dsonar.sources=src \
+                          -Dsonar.sources=. \
                           -Dsonar.exclusions=node_modules/**,coverage/**
                     '''
                 }
